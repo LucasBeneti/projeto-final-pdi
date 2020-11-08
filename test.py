@@ -27,7 +27,7 @@ cv2.imshow('imagem com todos os contornos', output)
 countour_number = 0
 for i in range(len(countours)):
     isConvex = cv2.isContourConvex(countours[i])
-    if(cv2.contourArea(countours[i]) > 130):
+    if(isConvex == True and cv2.contourArea(countours[i]) > 130):
             countour = countours[i]
             countour_number +=1
             cv2.drawContours(output_2, countour, -1, (0,255,0),3)
