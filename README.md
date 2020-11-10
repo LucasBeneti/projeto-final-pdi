@@ -18,3 +18,5 @@ No branch development:
 
     (11/11) - A file teste2.py parece mais promissora, apenas é aplicado um thresh meio arbitrário (mas provavelmente consigo encontrar o melhor valor pelo histograma), nessa mesma limiarização, é obtida imagem invertida e assim as opções marcadas ficam bem mais evidentes. Uma ideia pra pegar cada opção de cada linha é, cortar a imagem em 50 linhas com 6 colunas cada e a partir do index 1 (porque 0 será o número da questão), ver o número de pixels não nulos e pegar o maior valor dentre as cinco opções, e aquela que tiver uma discrepância maior, será eleita a resposta correta (se for o caso do gabarito) e a opção de quem respondeu (caso da prova) e assim
     fazer alguma lógica pra guardar e computar esses dados. Pra anular uma questão tbm é tranquilo, ou não tem uma diferença muito grande entre as alternativas ou tem mais de uma que será considerada anulada pois não é possível marcar duas alternativas
+
+    (12/11) - NOTA MENTAL: `cv2.imshow(<NOME DA JANELA COMO STRING>, matrizDaImagem)`, os splits estão funcionando
