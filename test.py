@@ -11,13 +11,13 @@ th2 = cv2.adaptiveThreshold(img_medianblur,255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.
 # cv2.imshow('Thresh Adaptativo Gaussiano sem blur com constante 7',th1)
 # cv2.imshow('Thresh Adaptativo Medio sem blur com constante 7',th2)
 # cv2.imshow('Canny Output',canny_output)
-print('tamanho da imagem', th2.shape)
-output = np.zeros([th2.shape[0], th2.shape[1],1], np.uint8)
+print('tamanho da imagem', th1.shape)
+output = np.zeros([th1.shape[0], th1.shape[1],1], np.uint8)
 output.fill(255)
 
-output_2 = np.zeros([th2.shape[0], th2.shape[1],1], np.uint8)
+output_2 = np.zeros([th1.shape[0], th1.shape[1],1], np.uint8)
 output_2.fill(255)
-countours, hierarchy = cv2.findContours(th2, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+countours, hierarchy = cv2.findContours(th1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 for i in range(len(countours)):
     cv2.drawContours(output, countours, i, (0,255,0),3)
 
