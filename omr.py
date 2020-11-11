@@ -4,25 +4,37 @@ from matplotlib import pyplot as plt
 
 import utils
 
-original = cv2.imread("./images/gabarito.jpeg") # 0 seta a leitura para grayscale
-original = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
-imgThresh = cv2.threshold(original, 150,255,cv2.THRESH_BINARY_INV)[1] # com um valor mais basixo pra thresh não perde muita coisa da parte de baixo
-# original = cv.medianBlur(original, 5)
-# th1 = cv.adaptiveThreshold(original,255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY_INV,11,7)
-
-# hist_original = cv.calcHist([original], [0], None, [256],[0,256])
-# plt.plot(hist_original)
-# print(hist_original)
-
-cv2.imshow('original', original)
-cv2.imshow('imgThresh', imgThresh)
+# load das imagens
+gabaritoImg = cv2.imread('./images/gabarito_1.jpeg')
+testImg = cv2.imread('./images/prova_1.jpeg')
 
 
-fullTestSplit = utils.splitFullImage(imgThresh)
-nonZeroArr = utils.getArrayOfNonZeros(fullTestSplit)
-finalAnsArr = utils.getAnsForEachQuestion(nonZeroArr)
-print(finalAnsArr)
+# um ponto a melhorar é o threshhold, porque está muito arbitrário, dar uma olhada
+# se rola fazer calculando o histograma e obter um valor melhor
+gabaritoImg = cv2.cvtColor(gabaritoImg, cv2.COLOR_BGR2GRAY)
+gabaritoThresh = cv2.threshold(gabaritoImg, 90,255,cv2.THRESH_BINARY_INV)[1]
+testImg = cv2.cvtColor(testImg, cv2.COLOR_BGR2GRAY)
+testThresh = cv2.threshold(testImg, 90,255,cv2.THRESH_BINARY_INV)[1]
+
+# funcão pra pegar a resposta final da imagem
+def getFileAns(img):
+    fullTestSplit = utils.splitFullImage(img)
+    nonZeroArr = utils.getArrayOfNonZeros(fullTestSplit)
+    finalAnsArr = utils.getAnsForEachQuestion(nonZeroArr)
+
+    return finalAnsArr
 
 
-cv2.waitKey()
-cv2.destroyAllWindows()
+gabaritoAns = getFileAns(gabaritoThresh)
+testAns = getFileAns(testThresh)
+
+print('Gabarito: ', len(gabaritoAns))
+print('Prova corrigida: ', len(testAns))
+
+# correção efetivamente sendo feita e depois um print do acerto
+acertos = 0
+for i in range(len(gabaritoAns)):
+    if(testAns[i] == gabaritoAns[i]):
+        acertos +=1
+
+print('resultado final: ', acertos) # pelas minhas contas o teste deu certinho
