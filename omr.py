@@ -6,8 +6,8 @@ import utils
 import imageProcessing
 
 # load das imagens
-gabaritoImg = cv2.imread('./images/gabarito.jpeg')
-testImg = cv2.imread('./images/prova.jpeg')
+gabaritoImg = cv2.imread('./images/gabarito_1.jpeg')
+testImg = cv2.imread('./images/prova_1.jpeg')
 
 
 # um ponto a melhorar é o threshhold, porque está muito arbitrário, dar uma olhada
