@@ -76,3 +76,8 @@ def chooseAnswerForQuestion(valuesArr):
     return localAns
 
 
+# imagem de enctrada tem que ser grayscale já
+def getImageHist(img):
+    hist = cv2.calcHist([img],[0], None,[256],[0,256])
+    # plt.hist(img.ravel(),256,[0,256])
+    # plt.show()
