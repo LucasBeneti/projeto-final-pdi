@@ -23,3 +23,7 @@ No branch development:
         Parte 2: Terminei as funções mais críticas pra conseguir um array com as alternativas marcadas a partir de uma imagem. Próximo passo é usar essa função pra comparar duas imagens diferentes (gabarito x teste) e ver quantas questão estão iguais
 
     (11/11) - Mudei o threshold pra otsu pois parece melhor, falta um pouco mais de testes pra fechar com ele. Na pasta de `images` tem a `gabarito_1.jpg` e `prova_1.jpeg`, essas duas estão completamente preenchidas e foram tiradas com uma puta sombra, boas pra teste. (Breve teste com OTSU, deu bosta nessas duas imagens melhores)
+
+### Melhorias
+
+    Se o gabarito for mais quadrado, proporções mais certinhas, capaz de obtermos uma melhor precisão na hora de separar os pedaços das imagens.

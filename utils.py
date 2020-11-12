@@ -3,6 +3,21 @@ import cv2
 import math
 from matplotlib import pyplot as plt
 
+'''
+    Input:
+        img - imagem de onde serão retiradas as alternativas preenchidas
+    Output:
+        Array cujo tamanho é o número de questões da prova (50 no nosso caso) e 
+        em cada índice do vetor é a resposta para a respectiva pergunta
+'''
+def getFileAns(img):
+    fullTestSplit = splitFullImage(img)
+    nonZeroArr = getArrayOfNonZeros(fullTestSplit)
+    print('questao 48', nonZeroArr[47])
+    finalAnsArr = getAnsForEachQuestion(nonZeroArr)
+
+    return finalAnsArr
+
 # separa a imagem completamente em 50 elementos onde cada um destes 
 # é um array com 6 itens, cada item é uma imagem ou do número da questão
 # ou da alternativa
@@ -51,9 +66,11 @@ def getArrayOfNonZeros(fullSplitImage):
 '''
 def getAnsForEachQuestion(nonZeroArr):
     finalAnsForQuestion = []
+    indexConverter = ['-', 'A', 'B', 'C', 'D', 'E']
     for res in nonZeroArr:
-        finalAns = chooseAnswerForQuestion(res)
-        finalAnsForQuestion.append(finalAns)
+        finalAns = chooseAnswerForQuestion(res)    
+            
+        finalAnsForQuestion.append(indexConverter[finalAns])
 
     return finalAnsForQuestion
     
@@ -65,11 +82,13 @@ def getAnsForEachQuestion(nonZeroArr):
     Output:
         Alternativa final para aquela questão
 '''
+# ainda tem que pensar melhor como que fará pra anular questões
 def chooseAnswerForQuestion(valuesArr):
     localAns = 0
     currMax = 0
+    # print(valuesArr)
     for el in valuesArr:
-        if(el > currMax):
+        if (el > currMax):
             currMax = el
             localAns = valuesArr.index(el)
 
