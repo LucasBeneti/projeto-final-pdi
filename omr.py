@@ -6,8 +6,8 @@ import utils
 import imageProcessing
 
 # load das imagens
-gabaritoImg = cv2.imread('./images/gabarito_1.jpeg')
-testImg = cv2.imread('./images/48_anulada.jpeg')
+gabaritoImg = cv2.imread('./images/novo_gabarito.jpeg')
+testImg = cv2.imread('./images/s_marcar.jpeg')
 
 thresh_val = 85 # valor semi arbitrário, não  pode ser muito maior pois 
 # binarização é prejudicada caso a imagem tenha sombra, por isso
@@ -31,6 +31,18 @@ cv2.imshow('teste otsu', otsu_test)
 
 gabaritoAns = utils.getFileAns(otsu_gabarito)
 testAns = utils.getFileAns(otsu_test)
+
+# fullTestSplit = splitFullImage(img)
+#     nonZeroArr = getArrayOfNonZeros(fullTestSplit)
+#     print('questao 48', nonZeroArr[47])
+#     finalAnsArr = getAnsForEachQuestion(nonZeroArr)
+# fullTestSplit = utils.splitFullImage(otsu_test)
+# nonZeroArr = utils.getArrayOfNonZeros(fullTestSplit)
+# print('questao 48', nonZeroArr[47])
+# print('------------------- teste questao 48 -------------------')
+# print('resultados 48: ', utils.chooseAnswerForQuestion(nonZeroArr[47]))
+
+# testAns = utils.getAnsForEachQuestion(nonZeroArr)
 
 print('Gabarito: ', gabaritoAns)
 print('Prova corrigida: ', testAns)
