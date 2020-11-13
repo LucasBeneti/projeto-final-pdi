@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
@@ -5,55 +6,63 @@ from matplotlib import pyplot as plt
 import utils
 import imageProcessing
 
-# load das imagens
-gabaritoImg = cv2.imread('./images/novo_gabarito.jpeg')
-testImg = cv2.imread('./images/s_marcar.jpeg')
 
-thresh_val = 85 # valor semi arbitrário, não  pode ser muito maior pois 
-# binarização é prejudicada caso a imagem tenha sombra, por isso
-# só podemos aceitar até certo ponto de quantidade de sombra
-gabaritoImg = cv2.cvtColor(gabaritoImg, cv2.COLOR_BGR2GRAY)
-testImg = cv2.cvtColor(testImg, cv2.COLOR_BGR2GRAY)
+def getRightAnswers(gabarito, prova):
+    acertos = 0
+    for i in range(len(gabaritoAns)):
+        if(provaAns[i] == gabaritoAns[i]):
+            acertos +=1
+    return acertos
 
-otsu_gabarito = imageProcessing.preprocessImages(gabaritoImg, thresh_val)
-cv2.imshow('gabarito otsu',otsu_gabarito)
-otsu_test = imageProcessing.preprocessImages(testImg, thresh_val)
-cv2.imshow('teste otsu', otsu_test)
+if __name__ == '__main__':
+    print('Corretor de provas')
+    print('O usuario deve passar os paths referentes as pastas das imagens dos gabaritos e depois o arquivo da prova a ser corrigida')
+    # print('Dê o endereço da pasta onde os gabaritos estão contidos')
+    imagesPaths = input('Pasta dos gabaritos: ') # pasta que tem todas as provas
+    # os gabaritos precisam ter um nome específico nelas
+    lista_files = os.listdir(imagesPaths);
+    tiposGabaritos = {}
+    for gabaritoPath in lista_files:
+        tipo = gabaritoPath.split('.')[0][-1] # pega o numero que serve idenetificador do tipo
+        if(imagesPaths[-1] == '/'):
+            pathCompletoGabarito = imagesPaths + gabaritoPath
+        else:
+            pathCompletoGabarito = imagesPaths + '/' + gabaritoPath
+        tiposGabaritos[tipo] = pathCompletoGabarito
 
-# funcão pra pegar a resposta final da imagem
-# def getFileAns(img):
-#     fullTestSplit = utils.splitFullImage(img)
-#     nonZeroArr = utils.getArrayOfNonZeros(fullTestSplit)
-#     finalAnsArr = utils.getAnsForEachQuestion(nonZeroArr)
+    pathProvaRespondida = input('path para a prova: ')
+    tipoRespondido = input('Tipo da prova respondida: ')
+    # path certinho para imagem da prova
+    pathProvaRespondida = os.path.abspath(pathProvaRespondida)
+    pathGabaritoEscolhido = os.path.abspath(tiposGabaritos[tipoRespondido])
 
-#     return finalAnsArr
+    # load das imagens
+    gabaritoImage = cv2.imread(pathGabaritoEscolhido)
+    print('path do gabarito: ', pathGabaritoEscolhido)
+    provaImage = cv2.imread(pathProvaRespondida)
+    print('path da prova: ', pathProvaRespondida)
 
+    thresh_val = 85 # valor semi arbitrário, não  pode ser muito maior pois 
+    # binarização é prejudicada caso a imagem tenha sombra, por isso
+    # só podemos aceitar até certo ponto de quantidade de sombra
+    cv2.imshow('Gabarito Original', gabaritoImage)
+    gabaritoImage = cv2.cvtColor(gabaritoImage, cv2.COLOR_BGR2GRAY)
+    provaImage = cv2.cvtColor(provaImage, cv2.COLOR_BGR2GRAY)
 
-gabaritoAns = utils.getFileAns(otsu_gabarito)
-testAns = utils.getFileAns(otsu_test)
+    gabaritoProcessed = imageProcessing.preprocessImages(gabaritoImage, thresh_val)
+    cv2.imshow('Gabarito Processado',gabaritoProcessed)
+    provaProcessed = imageProcessing.preprocessImages(provaImage, thresh_val)
+    cv2.imshow('Prova Processada', provaProcessed)
 
-# fullTestSplit = splitFullImage(img)
-#     nonZeroArr = getArrayOfNonZeros(fullTestSplit)
-#     print('questao 48', nonZeroArr[47])
-#     finalAnsArr = getAnsForEachQuestion(nonZeroArr)
-# fullTestSplit = utils.splitFullImage(otsu_test)
-# nonZeroArr = utils.getArrayOfNonZeros(fullTestSplit)
-# print('questao 48', nonZeroArr[47])
-# print('------------------- teste questao 48 -------------------')
-# print('resultados 48: ', utils.chooseAnswerForQuestion(nonZeroArr[47]))
+    gabaritoAns = utils.getFileAns(gabaritoProcessed)
+    provaAns = utils.getFileAns(provaProcessed)
 
-# testAns = utils.getAnsForEachQuestion(nonZeroArr)
+    print('Respostas obtidas do gabarito: ', gabaritoAns)
+    print('Respostas obtidas da prova: ', provaAns)
 
-print('Gabarito: ', gabaritoAns)
-print('Prova corrigida: ', testAns)
+    # correção efetivamente sendo feita e depois um print do acerto
+    acertou = getRightAnswers(gabaritoAns, provaAns)
+    print('resultado final: ', acertou) # pelas minhas contas o teste deu certinho
 
-# correção efetivamente sendo feita e depois um print do acerto
-acertos = 0
-for i in range(len(gabaritoAns)):
-    if(testAns[i] == gabaritoAns[i]):
-        acertos +=1
-
-print('resultado final: ', acertos) # pelas minhas contas o teste deu certinho
-
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()

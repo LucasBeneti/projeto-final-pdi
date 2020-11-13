@@ -13,7 +13,6 @@ from matplotlib import pyplot as plt
 def getFileAns(img):
     fullTestSplit = splitFullImage(img)
     nonZeroArr = getArrayOfNonZeros(fullTestSplit)
-    print('questao 21: ', nonZeroArr[21])
     finalAnsArr = getAnsForEachQuestion(nonZeroArr)
 
     return finalAnsArr
@@ -82,30 +81,24 @@ def getAnsForEachQuestion(nonZeroArr):
     Output:
         Alternativa final para aquela questão
 '''
-# ainda tem que pensar melhor como que fará pra anular questões
 def chooseAnswerForQuestion(valuesArr):
     localAns = 0
     currMax = 0
     runnerUp = 0
-    # print(valuesArr)
     for el in valuesArr:
         if (el > currMax):
             runnerUp = currMax
             currMax = el
             localAns = valuesArr.index(el)
         elif (el > runnerUp):
-            runnerUp = el
-    # print('maior valor: ', currMax)
-    # print('segundo maior: ', runnerUp)
+            runnerUp = el1
     # variando esse coef 0.4, você determina a tolerância pra anular
     # checando se aluno marcou mais de uma resposta
     if(runnerUp >= (0.4 * currMax)):
-        # print('PASSOU NO IF')
         localAns = 0
 
     # checando se o aluno não marcou nenhuma resposta
     if((currMax - runnerUp) < 0.3 * currMax):
-        # print('PASSOU NO IF')
         localAns = 0
 
     return localAns
