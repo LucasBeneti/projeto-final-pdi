@@ -26,4 +26,16 @@ No branch development:
 
 ### Melhorias
 
-    Se o gabarito for mais quadrado, proporções mais certinhas, capaz de obtermos uma melhor precisão na hora de separar os pedaços das imagens.
+    [FEITO] Se o gabarito for mais quadrado, proporções mais certinhas, capaz de obtermos uma melhor precisão na hora de separar os pedaços das imagens. - Deu certo, melhorou bastante na separação dos imagens.
+
+    Fazer um melhor display da correção, talvez algo parecido com uma tabela pra ficar mais claro pro usuário.
+
+### Interface CLI
+
+    Interface está implementada, bem básica.
+    * Entradas (respectivamente):
+        - path para a pasta contendo as files de gabarito
+        - path da file do gabarito
+        - tipo do gabarito (1, 2, 3...)
+
+    O tipo de prova deve estar explicito no nome da file da imagem do gabarito, como gabarito_1.jpeg, gabarito_2.jpeg, gabarito_3.jpeg
