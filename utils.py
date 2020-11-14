@@ -1,5 +1,5 @@
 import numpy as np 
-import cv2
+# import cv2
 import math
 from matplotlib import pyplot as plt
 
@@ -105,7 +105,7 @@ def chooseAnswerForQuestion(valuesArr):
 
 
 # imagem de enctrada tem que ser grayscale já
-def getImageHist(img):
-    hist = cv2.calcHist([img],[0], None,[256],[0,256])
+# def getImageHist(img):
+#     hist = cv2.calcHist([img],[0], None,[256],[0,256])
     # plt.hist(img.ravel(),256,[0,256])
     # plt.show()
