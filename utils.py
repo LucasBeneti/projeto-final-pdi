@@ -66,9 +66,8 @@ def getArrayOfNonZeros(fullSplitImage):
 def getAnsForEachQuestion(nonZeroArr):
     finalAnsForQuestion = []
     indexConverter = ['-', 'A', 'B', 'C', 'D', 'E']
-    for res in nonZeroArr:
-        finalAns = chooseAnswerForQuestion(res)    
-            
+    for question in nonZeroArr:
+        finalAns = chooseAnswerForQuestion(question)    
         finalAnsForQuestion.append(indexConverter[finalAns])
 
     return finalAnsForQuestion
