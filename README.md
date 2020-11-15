@@ -39,3 +39,20 @@ No branch development:
         - tipo do gabarito (1, 2, 3...)
 
     O tipo de prova deve estar explicito no nome da file da imagem do gabarito, como gabarito_1.jpeg, gabarito_2.jpeg, gabarito_3.jpeg
+
+## BUG NO RESHAPE DO RETANGULO
+
+Traceback (most recent call last):
+File "main.py", line 52, in <module>
+gabaritoAns = general.getAnswersFromTest(gabaritoImage)
+File "/Users/lucasbeneti/projects/PDI_py/general.py", line 127, in getAnswersFromTest
+imgWarped = getWarpedImageFromContour(imgThreshold, contour)
+File "/Users/lucasbeneti/projects/PDI_py/general.py", line 53, in getWarpedImageFromContour
+rect = getOrderedRectFromContour(contour)
+File "/Users/lucasbeneti/projects/PDI_py/general.py", line 40, in getOrderedRectFromContour
+points = np.reshape(points, (4, 2))
+File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/numpy/core/fromnumeric.py", line 292, in reshape
+return \_wrapfunc(a, 'reshape', newshape, order=order)
+File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/numpy/core/fromnumeric.py", line 56, in \_wrapfunc
+return getattr(obj, method)(\*args, \*\*kwds)
+ValueError: cannot reshape array of size 28 into shape (4,2)
